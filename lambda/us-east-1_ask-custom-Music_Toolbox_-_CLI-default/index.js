@@ -9,53 +9,42 @@ const LaunchRequestHandler = {
         return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
     },
     handle(handlerInput) {
-        const speechText = 'Hi! Would you like to use a drone or metronome?';
+        const speechText = 'Welcome! Would you like to use a drone or metronome? Say help for instructions.';
         return handlerInput.responseBuilder
             .speak(speechText)
             .reprompt(speechText)
             .getResponse();
     }
 };
-const HelloWorldIntentHandler = {
-    canHandle(handlerInput) {
-        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-            && handlerInput.requestEnvelope.request.intent.name === 'HelloWorldIntent';
-    },
-    handle(handlerInput) {
-        const speechText = 'Hello World!';
-        return handlerInput.responseBuilder
-            .speak(speechText)
-            //.reprompt('add a reprompt if you want to keep the session open for the user to respond')
-            .getResponse();
-    }
-};
+
 const StartMetronomeIntentHandler = {
     canHandle(handlerInput) {
         return handlerInput.requestEnvelope.request.type === 'IntentRequest'
             && handlerInput.requestEnvelope.request.intent.name === 'StartMetronomeIntent';
     },
     handle(handlerInput) {
-        var res="";
+        var speechText = '';
         if(handlerInput.requestEnvelope.request.intent.slots.BPM.value !== null) {
             var bpm = handlerInput.requestEnvelope.request.intent.slots.BPM.value;
-            for(var i=1; i<10; i++){
-                res=res+'<break time="'+(60/bpm)+'s"/><phoneme alphabet="ipa" ph="k">k</phoneme>';
-            }
-        }
-        const speechText = "starting metronome at "+bpm;
+            speechText = "starting metronome at " + bpm; 
+        } 
         return handlerInput.responseBuilder
             .speak(speechText)
-            .addAudioPlayerPlayDirective('REPLACE_ALL', 'https://jeenayin.github.io/static/120.mp3', "metronome", 0, null)
+            .addAudioPlayerPlayDirective('REPLACE_ALL', 'https://jeenayin.github.io/static/120.mp3', "metronome", 0)
             .getResponse();
     }
 };
+
+
+
+
 const HelpIntentHandler = {
     canHandle(handlerInput) {
         return handlerInput.requestEnvelope.request.type === 'IntentRequest'
             && handlerInput.requestEnvelope.request.intent.name === 'AMAZON.HelpIntent';
     },
     handle(handlerInput) {
-        const speechText = 'You can say hello to me! How can I help?';
+        const speechText = 'To use a metronome, say, start metronome.';
 
         return handlerInput.responseBuilder
             .speak(speechText)
@@ -63,11 +52,15 @@ const HelpIntentHandler = {
             .getResponse();
     }
 };
+
+
+
 const CancelAndStopIntentHandler = {
     canHandle(handlerInput) {
         return handlerInput.requestEnvelope.request.type === 'IntentRequest'
             && (handlerInput.requestEnvelope.request.intent.name === 'AMAZON.CancelIntent'
-                || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.StopIntent');
+                || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.StopIntent'
+                || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.PauseIntent');
     },
     handle(handlerInput) {
         const speechText = 'Goodbye!';
@@ -85,68 +78,31 @@ const AudioPlayerEventHandler = {
   },
   handle(handlerInput) {
     const { requestEnvelope, attributesManager, responseBuilder } = handlerInput;
-    const audioPlayerEventName = requestEnvelope.request.type.split('.');
+    const audioPlayerEventName = requestEnvelope.request.type.split('.')[1];
 
     switch (audioPlayerEventName) {
       case 'PlaybackStarted':
+        console.log('PlaybackStarted');
         break;
+
       case 'PlaybackStopped':
-        responseBuilder
-          .addAudioPlayerClearQueueDirective('CLEAR_ALL')
-          .addAudioPlayerStopDirective();
+        console.log('PlaybackStopped');
         break;
+
       case 'PlaybackNearlyFinished':
+        console.log('nearly finished. enqueuing');
+        responseBuilder
+          .addAudioPlayerPlayDirective('ENQUEUE', 'https://jeenayin.github.io/static/120.mp3', "metronome", 0, "metronome");
+        console.log(responseBuilder);
         break;
+
       default:
-        throw new Error('Shouldnt happen');
+        throw new Error('cannot handle' + audioPlayerEventName);
 
     }
     return responseBuilder.getResponse();
   },
-}
-
-// const PlaybackStoppedIntentHandler = {
-//   canHandle(handlerInput) {
-//     return handlerInput.requestEnvelope.request.type === 'PlaybackController.PauseCommandIssued' || 
-//             handlerInput.requestEnvelope.request.type === 'AudioPlayer.PlaybackStopped';
-//   },
-//   handle(handlerInput) {
-//     handlerInput.responseBuilder
-//       .addAudioPlayerClearQueueDirective('CLEAR_ALL')
-//       .addAudioPlayerStopDirective();
-
-//     return handlerInput.responseBuilder
-//       .getResponse();
-//   },
-// };
-
-// const PlaybackStartedIntentHandler = {
-//   canHandle(handlerInput) {
-//     return handlerInput.requestEnvelope.request.type === 'AudioPlayer.PlaybackStarted';
-//   },
-//   handle(handlerInput) {
-//     handlerInput.responseBuilder
-//       .addAudioPlayerClearQueueDirective('CLEAR_ENQUEUED');
-
-//     return handlerInput.responseBuilder
-//       .getResponse();
-//   },
-// };
-
-// const PlaybackRepeatIntentHandler = {
-//   canHandle(handlerInput) {
-//     return handlerInput.requestEnvelope.request.type === 'AudioPlayer.PlaybackNearlyFinished';
-//   },
-//   handle(handlerInput) {
-//     console.log("nearly finished");
-//     return handlerInput.responseBuilder
-//       .addAudioPlayerPlayDirective('ENQUEUE', 'https://jeenayin.github.io/static/120.mp3', "metronome", 0, null)
-//       .getResponse();
-//   },
-// };
-
-
-
+};
 
 const SessionEndedRequestHandler = {
     canHandle(handlerInput) {
@@ -168,7 +124,7 @@ const IntentReflectorHandler = {
     },
     handle(handlerInput) {
         const intentName = handlerInput.requestEnvelope.request.intent.name;
-        const speechText = `You just triggered ${intentName}`;
+        const speechText = `You just triggered ${intentName} in Music Toolbox`;
 
         return handlerInput.responseBuilder
             .speak(speechText)
@@ -201,13 +157,10 @@ const ErrorHandler = {
 exports.handler = Alexa.SkillBuilders.custom()
     .addRequestHandlers(
         LaunchRequestHandler,
-        HelloWorldIntentHandler,
         StartMetronomeIntentHandler,
         HelpIntentHandler,
         CancelAndStopIntentHandler,
         AudioPlayerEventHandler,
-        // PlaybackStoppedIntentHandler,
-        // PlaybackStartedIntentHandler,
         SessionEndedRequestHandler,
         IntentReflectorHandler) // make sure IntentReflectorHandler is last so it doesn't override your custom intent handlers
     .addErrorHandlers(

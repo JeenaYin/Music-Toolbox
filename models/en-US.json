@@ -1,98 +1,152 @@
 {
-  "interactionModel": {
-    "languageModel": {
-      "invocationName": "music toolbox",
-      "intents": [
-        {
-          "name": "AMAZON.CancelIntent",
-          "samples": []
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "music toolbox",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.PauseIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.ResumeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "StartMetronomeIntent",
+                    "slots": [
+                        {
+                            "name": "BPM",
+                            "type": "AMAZON.NUMBER",
+                            "samples": [
+                                "{BPM}",
+                                "{BPM} please",
+                                "at {BPM}",
+                                "play {BPM}",
+                                "at {BPM} b. p. m.",
+                                "metronome at {BPM}",
+                                "metronome at b. p. m. {BPM}",
+                                "metronome with {BPM} b. p. m.",
+                                "metronome with b. p. m. {BPM}"
+                            ]
+                        }
+                    ],
+                    "samples": [
+                        "metronome",
+                        "metronome at {BPM}",
+                        "metronome at b. p. m. {BPM}",
+                        "metronome with {BPM} b. p. m.",
+                        "metronome with b. p. m. {BPM}",
+                        "start metronome",
+                        "start metronome at {BPM}",
+                        "start metronome at b. p. m. {BPM}",
+                        "start metronome with {BPM} b. p. m.",
+                        "start metronome with b. p. m. {BPM}",
+                        "and start metronome",
+                        "and start metronome at {BPM}",
+                        "and start metronome at b. p. m. {BPM}",
+                        "and start metronome with b. p. m. {BPM}",
+                        "and start metronome with b. p. m. {BPM}",
+                        "open metronome",
+                        "open metronome at {BPM}",
+                        "open metronome at b. p. m. {BPM}",
+                        "open metronome with {BPM} b. p. m.",
+                        "open metronome with b. p. m. {BPM}",
+                        "turn on metronome",
+                        "turn on metronome at {BPM}",
+                        "turn on metronome at b. p. m. {BPM}",
+                        "turn on metronome with {BPM} b. p. m.",
+                        "turn on metronome with b. p. m. {BPM}",
+                        "with metronome",
+                        "with metronome at {BPM}",
+                        "with metronome at b. p. m. {BPM}",
+                        "with metronome with {BPM} b. p. m.",
+                        "with metronome with b. p. m. {BPM}"
+                    ]
+                }
+            ],
+            "types": []
         },
-        {
-          "name": "AMAZON.HelpIntent",
-          "samples": []
+        "dialog": {
+            "intents": [
+                {
+                    "name": "StartMetronomeIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "BPM",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.620201948900.1232108062450"
+                            },
+                            "validations": [
+                                {
+                                    "type": "isLessThanOrEqualTo",
+                                    "prompt": "Slot.Validation.83909588401.1261101631220.724188919702",
+                                    "value": "500"
+                                },
+                                {
+                                    "type": "isGreaterThanOrEqualTo",
+                                    "prompt": "Slot.Validation.83909588401.1261101631220.307716337985",
+                                    "value": "10"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "delegationStrategy": "ALWAYS"
         },
-        {
-          "name": "AMAZON.StopIntent",
-          "samples": []
-        },
-        {
-          "name": "HelloWorldIntent",
-          "slots": [],
-          "samples": [
-            "hello"
-          ]
-        },
-        {
-          "name": "AMAZON.NavigateHomeIntent",
-          "samples": []
-        },
-        {
-          "name": "AMAZON.PauseIntent",
-          "samples": []
-        },
-        {
-          "name": "AMAZON.ResumeIntent",
-          "samples": []
-        },
-        {
-          "name": "StartMetronomeIntent",
-          "slots": [
+        "prompts": [
             {
-              "name": "BPM",
-              "type": "AMAZON.NUMBER",
-              "samples": [
-                "at {BPM} b. p. m.",
-                "at {BPM}",
-                "play {BPM}",
-                "{BPM}"
-              ]
-            }
-          ],
-          "samples": [
-            "start metronome at b. p. m. {BPM}",
-            "metronome with {BPM} b. p. m.",
-            "metronome at b. p. m. {BPM}",
-            "metronome at {BPM}",
-            "metronome",
-            "start metronome",
-            "start metronome at {BPM}"
-          ]
-        }
-      ],
-      "types": []
-    },
-    "dialog": {
-      "intents": [
-        {
-          "name": "StartMetronomeIntent",
-          "confirmationRequired": false,
-          "prompts": {},
-          "slots": [
+                "id": "Elicit.Slot.620201948900.1232108062450",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "How many beats per minutes?"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "At what bpm?"
+                    }
+                ]
+            },
             {
-              "name": "BPM",
-              "type": "AMAZON.NUMBER",
-              "elicitationRequired": true,
-              "confirmationRequired": false,
-              "prompts": {
-                "elicitation": "Elicit.Slot.620201948900.1232108062450"
-              }
+                "id": "Slot.Validation.83909588401.1261101631220.724188919702",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "bpm can be between ten and five hundreds. How fast should the metronome be?"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.83909588401.1261101631220.307716337985",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "bpm can be between ten and five hundreds. How fast should the metronome be?"
+                    }
+                ]
             }
-          ]
-        }
-      ],
-      "delegationStrategy": "ALWAYS"
-    },
-    "prompts": [
-      {
-        "id": "Elicit.Slot.620201948900.1232108062450",
-        "variations": [
-          {
-            "type": "PlainText",
-            "value": "At what bpm?"
-          }
         ]
-      }
-    ]
-  },
-  "version": "8"
+    }
 }
