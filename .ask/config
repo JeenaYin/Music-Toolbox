@@ -23,7 +23,7 @@
             "codeUri": "lambda/us-east-1_ask-custom-Music_Toolbox_-_CLI-default",
             "functionName": "ask-custom-Music_Toolbox_-_CLI-default",
             "handler": "index.handler",
-            "revisionId": "769204c2-2f29-4632-aa46-0d9b6c4812a3",
+            "revisionId": "1f7db01d-7dbc-4de1-b8da-16d01af8c5aa",
             "runtime": "nodejs8.10"
           }
         ]
