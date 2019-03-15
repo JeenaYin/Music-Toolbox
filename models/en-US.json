@@ -1,0 +1,98 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "music toolbox",
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "HelloWorldIntent",
+          "slots": [],
+          "samples": [
+            "hello"
+          ]
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.PauseIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.ResumeIntent",
+          "samples": []
+        },
+        {
+          "name": "StartMetronomeIntent",
+          "slots": [
+            {
+              "name": "BPM",
+              "type": "AMAZON.NUMBER",
+              "samples": [
+                "at {BPM} b. p. m.",
+                "at {BPM}",
+                "play {BPM}",
+                "{BPM}"
+              ]
+            }
+          ],
+          "samples": [
+            "start metronome at b. p. m. {BPM}",
+            "metronome with {BPM} b. p. m.",
+            "metronome at b. p. m. {BPM}",
+            "metronome at {BPM}",
+            "metronome",
+            "start metronome",
+            "start metronome at {BPM}"
+          ]
+        }
+      ],
+      "types": []
+    },
+    "dialog": {
+      "intents": [
+        {
+          "name": "StartMetronomeIntent",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": [
+            {
+              "name": "BPM",
+              "type": "AMAZON.NUMBER",
+              "elicitationRequired": true,
+              "confirmationRequired": false,
+              "prompts": {
+                "elicitation": "Elicit.Slot.620201948900.1232108062450"
+              }
+            }
+          ]
+        }
+      ],
+      "delegationStrategy": "ALWAYS"
+    },
+    "prompts": [
+      {
+        "id": "Elicit.Slot.620201948900.1232108062450",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "At what bpm?"
+          }
+        ]
+      }
+    ]
+  },
+  "version": "8"
+}

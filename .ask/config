@@ -1,0 +1,33 @@
+{
+  "deploy_settings": {
+    "default": {
+      "skill_id": "amzn1.ask.skill.4ce1b0f8-ca75-43a7-b2ce-7968f705aa9a",
+      "was_cloned": false,
+      "merge": {},
+      "resources": {
+        "manifest": {
+          "eTag": "06edc9b3c151158db83af0ce97f7b3b8"
+        },
+        "interactionModel": {
+          "en-US": {
+            "eTag": "fed841fc6ca6c29b390217b8a4506c40"
+          }
+        },
+        "lambda": [
+          {
+            "alexaUsage": [
+              "custom/default"
+            ],
+            "arn": "arn:aws:lambda:us-east-1:245673147737:function:ask-custom-Music_Toolbox_-_CLI-default",
+            "awsRegion": "us-east-1",
+            "codeUri": "lambda/us-east-1_ask-custom-Music_Toolbox_-_CLI-default",
+            "functionName": "ask-custom-Music_Toolbox_-_CLI-default",
+            "handler": "index.handler",
+            "revisionId": "7b0a146b-4643-49cb-8937-2b56a30e3c20",
+            "runtime": "nodejs8.10"
+          }
+        ]
+      }
+    }
+  }
+}
