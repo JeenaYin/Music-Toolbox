@@ -76,48 +76,77 @@ const CancelAndStopIntentHandler = {
             .addAudioPlayerStopDirective()
             .speak(speechText)
             .getResponse();
+    },
+};
+
+const AudioPlayerEventHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type.startsWith('AudioPlayer.');
+  },
+  handle(handlerInput) {
+    const { requestEnvelope, attributesManager, responseBuilder } = handlerInput;
+    const audioPlayerEventName = requestEnvelope.request.type.split('.');
+
+    switch (audioPlayerEventName) {
+      case 'PlaybackStarted':
+        break;
+      case 'PlaybackStopped':
+        responseBuilder
+          .addAudioPlayerClearQueueDirective('CLEAR_ALL')
+          .addAudioPlayerStopDirective();
+        break;
+      case 'PlaybackNearlyFinished':
+        break;
+      default:
+        throw new Error('Shouldnt happen');
+
     }
-};
+    return responseBuilder.getResponse();
+  },
+}
 
-const PlaybackStoppedIntentHandler = {
-  canHandle(handlerInput) {
-    return handlerInput.requestEnvelope.request.type === 'PlaybackController.PauseCommandIssued' || 
-            handlerInput.requestEnvelope.request.type === 'AudioPlayer.PlaybackStopped';
-  },
-  handle(handlerInput) {
-    handlerInput.responseBuilder
-      .addAudioPlayerClearQueueDirective('CLEAR_ALL')
-      .addAudioPlayerStopDirective();
+// const PlaybackStoppedIntentHandler = {
+//   canHandle(handlerInput) {
+//     return handlerInput.requestEnvelope.request.type === 'PlaybackController.PauseCommandIssued' || 
+//             handlerInput.requestEnvelope.request.type === 'AudioPlayer.PlaybackStopped';
+//   },
+//   handle(handlerInput) {
+//     handlerInput.responseBuilder
+//       .addAudioPlayerClearQueueDirective('CLEAR_ALL')
+//       .addAudioPlayerStopDirective();
 
-    return handlerInput.responseBuilder
-      .getResponse();
-  },
-};
+//     return handlerInput.responseBuilder
+//       .getResponse();
+//   },
+// };
 
-const PlaybackStartedIntentHandler = {
-  canHandle(handlerInput) {
-    return handlerInput.requestEnvelope.request.type === 'AudioPlayer.PlaybackStarted';
-  },
-  handle(handlerInput) {
-    handlerInput.responseBuilder
-      .addAudioPlayerClearQueueDirective('CLEAR_ENQUEUED');
+// const PlaybackStartedIntentHandler = {
+//   canHandle(handlerInput) {
+//     return handlerInput.requestEnvelope.request.type === 'AudioPlayer.PlaybackStarted';
+//   },
+//   handle(handlerInput) {
+//     handlerInput.responseBuilder
+//       .addAudioPlayerClearQueueDirective('CLEAR_ENQUEUED');
 
-    return handlerInput.responseBuilder
-      .getResponse();
-  },
-};
+//     return handlerInput.responseBuilder
+//       .getResponse();
+//   },
+// };
 
-const PlaybackRepeatIntentHandler = {
-  canHandle(handlerInput) {
-    return handlerInput.requestEnvelope.request.type === 'AudioPlayer.PlaybackNearlyFinished';
-  },
-  handle(handlerInput) {
-    console.log("nearly finished");
-    return handlerInput.responseBuilder
-      .addAudioPlayerPlayDirective('ENQUEUE', 'https://jeenayin.github.io/static/120.mp3', "metronome", 0, null)
-      .getResponse();
-  },
-};
+// const PlaybackRepeatIntentHandler = {
+//   canHandle(handlerInput) {
+//     return handlerInput.requestEnvelope.request.type === 'AudioPlayer.PlaybackNearlyFinished';
+//   },
+//   handle(handlerInput) {
+//     console.log("nearly finished");
+//     return handlerInput.responseBuilder
+//       .addAudioPlayerPlayDirective('ENQUEUE', 'https://jeenayin.github.io/static/120.mp3', "metronome", 0, null)
+//       .getResponse();
+//   },
+// };
+
+
+
 
 const SessionEndedRequestHandler = {
     canHandle(handlerInput) {
@@ -176,8 +205,9 @@ exports.handler = Alexa.SkillBuilders.custom()
         StartMetronomeIntentHandler,
         HelpIntentHandler,
         CancelAndStopIntentHandler,
-        PlaybackStoppedIntentHandler,
-        PlaybackStartedIntentHandler,
+        AudioPlayerEventHandler,
+        // PlaybackStoppedIntentHandler,
+        // PlaybackStartedIntentHandler,
         SessionEndedRequestHandler,
         IntentReflectorHandler) // make sure IntentReflectorHandler is last so it doesn't override your custom intent handlers
     .addErrorHandlers(
