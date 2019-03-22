@@ -83,6 +83,25 @@
                         "with metronome with {BPM} b. p. m.",
                         "with metronome with b. p. m. {BPM}"
                     ]
+                },
+                {
+                    "name": "StartDroneIntent",
+                    "slots": [
+                        {
+                            "name": "hz",
+                            "type": "AMAZON.NUMBER"
+                        },
+                        {
+                            "name": "note",
+                            "type": ""
+                        }
+                    ],
+                    "samples": [
+                        "start drone at {note}",
+                        "start drone at {hz}",
+                        "start drone",
+                        "play drone "
+                    ]
                 }
             ],
             "types": []
@@ -114,6 +133,27 @@
                                     "value": "10"
                                 }
                             ]
+                        }
+                    ]
+                },
+                {
+                    "name": "StartDroneIntent",
+                    "confirmationRequired": true,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "hz",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": false,
+                            "prompts": {}
+                        },
+                        {
+                            "name": "note",
+                            "type": "",
+                            "confirmationRequired": false,
+                            "elicitationRequired": false,
+                            "prompts": {}
                         }
                     ]
                 }
