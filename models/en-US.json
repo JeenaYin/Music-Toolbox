@@ -135,27 +135,6 @@
                             ]
                         }
                     ]
-                },
-                {
-                    "name": "StartDroneIntent",
-                    "confirmationRequired": true,
-                    "prompts": {},
-                    "slots": [
-                        {
-                            "name": "hz",
-                            "type": "AMAZON.NUMBER",
-                            "confirmationRequired": false,
-                            "elicitationRequired": false,
-                            "prompts": {}
-                        },
-                        {
-                            "name": "note",
-                            "type": "AMAZON.NUMBER",
-                            "confirmationRequired": false,
-                            "elicitationRequired": false,
-                            "prompts": {}
-                        }
-                    ]
                 }
             ],
             "delegationStrategy": "ALWAYS"
