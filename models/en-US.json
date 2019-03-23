@@ -88,23 +88,115 @@
                     "name": "StartDroneIntent",
                     "slots": [
                         {
-                            "name": "hz",
-                            "type": "AMAZON.NUMBER"
-                        },
-                        {
                             "name": "note",
-                            "type": "AMAZON.NUMBER"
+                            "type": "MusicalNote"
                         }
                     ],
                     "samples": [
+                        "play {note}",
+                        "give me a {note}",
+                        "give me an {note}",
                         "start drone at {note}",
-                        "start drone at {hz}",
                         "start drone",
                         "play drone "
                     ]
                 }
             ],
-            "types": []
+            "types": [
+                {
+                    "name": "MusicalNote",
+                    "values": [
+                        {
+                            "id": "a4",
+                            "name": {
+                                "value": "a. four",
+                                "synonyms": [
+                                    "higher a.",
+                                    "high a.",
+                                    "a.",
+                                    "440"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "a2",
+                            "name": {
+                                "value": "a. two",
+                                "synonyms": [
+                                    "lower a.",
+                                    "low a."
+                                ]
+                            }
+                        },
+                        {
+                            "id": "b3",
+                            "name": {
+                                "value": "b. three",
+                                "synonyms": [
+                                    "b."
+                                ]
+                            }
+                        },
+                        {
+                            "id": "bf3",
+                            "name": {
+                                "value": "b. flat",
+                                "synonyms": [
+                                    "b. flat 3"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "c4",
+                            "name": {
+                                "value": "c. four",
+                                "synonyms": [
+                                    "c.",
+                                    "middle c."
+                                ]
+                            }
+                        },
+                        {
+                            "id": "d3",
+                            "name": {
+                                "value": "d. three",
+                                "synonyms": [
+                                    "d."
+                                ]
+                            }
+                        },
+                        {
+                            "id": "e4",
+                            "name": {
+                                "value": "e. four",
+                                "synonyms": [
+                                    "higher e.",
+                                    "high e.",
+                                    "e."
+                                ]
+                            }
+                        },
+                        {
+                            "id": "e2",
+                            "name": {
+                                "value": "e. two",
+                                "synonyms": [
+                                    "low e."
+                                ]
+                            }
+                        },
+                        {
+                            "id": "g3",
+                            "name": {
+                                "value": "g. three",
+                                "synonyms": [
+                                    "g."
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
         },
         "dialog": {
             "intents": [
@@ -133,6 +225,20 @@
                                     "value": "10"
                                 }
                             ]
+                        }
+                    ]
+                },
+                {
+                    "name": "StartDroneIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "note",
+                            "type": "MusicalNote",
+                            "confirmationRequired": false,
+                            "elicitationRequired": false,
+                            "prompts": {}
                         }
                     ]
                 }
