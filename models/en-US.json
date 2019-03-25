@@ -89,16 +89,70 @@
                     "slots": [
                         {
                             "name": "note",
-                            "type": "MusicalNote"
+                            "type": "MusicalNote",
+                            "samples": [
+                                "{note}",
+                                "{note} please",
+                                "play {note}",
+                                "play a {note}",
+                                "play an {note}",
+                                "play me a {note}",
+                                "play me an {note}",
+                                "give me a {note}",
+                                "give me an {note}",
+                                "start at {note}",
+                                "start with a {note}",
+                                "start with an {note}",
+                                "drone at {note}"
+                            ]
                         }
                     ],
                     "samples": [
+                        "tune",
+                        "drone",
+                        "start drone",
+                        "play drone",
                         "play {note}",
+                        "play a {note}",
+                        "play an {note}",
+                        "play me a {note}",
+                        "play me an {note}",
                         "give me a {note}",
                         "give me an {note}",
+                        "start at {note}",
                         "start drone at {note}",
-                        "start drone",
-                        "play drone "
+                        "start the drone at {note}",
+                        "start with a {note}",
+                        "start with an {note}",
+                        "drone at {note}",
+                        "tune please",
+                        "drone please",
+                        "start drone please",
+                        "play drone please",
+                        "play {note} please",
+                        "play a {note} please",
+                        "play an {note} please",
+                        "play me a {note} please",
+                        "play me an {note} please",
+                        "give me a {note} please",
+                        "give me an {note} please",
+                        "start at {note} please",
+                        "start drone at {note} please",
+                        "start the drone at {note} please",
+                        "start with a {note} please",
+                        "start with an {note} please",
+                        "drone at {note} please",
+
+                        "play {note} drone",
+                        "play a {note} drone",
+                        "play an {note} drone",
+                        "play me a {note} drone",
+                        "play me an {note} drone",
+                        "give me a {note} drone",
+                        "give me an {note} drone",
+                        "start at {note} drone",
+                        "start with a {note} drone",
+                        "start with an {note} drone"
                     ]
                 }
             ],
@@ -107,24 +161,38 @@
                     "name": "MusicalNote",
                     "values": [
                         {
-                            "id": "a4",
-                            "name": {
-                                "value": "a. four",
-                                "synonyms": [
-                                    "higher a.",
-                                    "high a.",
-                                    "a.",
-                                    "440"
-                                ]
-                            }
-                        },
-                        {
                             "id": "a2",
                             "name": {
                                 "value": "a. two",
                                 "synonyms": [
                                     "lower a.",
-                                    "low a."
+                                    "low a.",
+                                    "one ten",
+                                    "one hundred and ten"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "a3",
+                            "name": {
+                                "value": "a. three",
+                                "synonyms": [
+                                    "middle a.",
+                                    "two hundreds and twenty",
+                                    "two twenty"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "a4",
+                            "name": {
+                                "value": "a. four",
+                                "synonyms": [
+                                    "higher a.",
+                                    "middle a.",
+                                    "a.",
+                                    "four forty",
+                                    "four hundreds and forty"
                                 ]
                             }
                         },
@@ -142,7 +210,21 @@
                             "name": {
                                 "value": "b. flat",
                                 "synonyms": [
-                                    "b. flat 3"
+                                    "b. flat three"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "c3",
+                            "name": {
+                                "value": "c. three",
+                                "synonyms": [
+                                    "c.",
+                                    "middle c.",
+                                    "two sixty",
+                                    "two sixty one",
+                                    "two hundreds sixty",
+                                    "two hundreds sixty one"
                                 ]
                             }
                         },
@@ -151,8 +233,8 @@
                             "name": {
                                 "value": "c. four",
                                 "synonyms": [
-                                    "c.",
-                                    "middle c."
+                                    "high c.",
+                                    "higher c."
                                 ]
                             }
                         },
@@ -237,8 +319,16 @@
                             "name": "note",
                             "type": "MusicalNote",
                             "confirmationRequired": false,
-                            "elicitationRequired": false,
-                            "prompts": {}
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1263470213170.1190404555723"
+                            },
+                            "validations": [
+                                {
+                                    "type": "hasEntityResolutionMatch",
+                                    "prompt": "Slot.Validation.1263470213170.1190404555723.738513253889"
+                                }
+                            ]
                         }
                     ]
                 }
@@ -274,6 +364,24 @@
                     {
                         "type": "PlainText",
                         "value": "bpm can be between ten and five hundreds. How fast should the metronome be?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1263470213170.1190404555723",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What note do you want to start the drone with?"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.1263470213170.1190404555723.738513253889",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "To start a drone, please say a valid musical note or frequency."
                     }
                 ]
             }

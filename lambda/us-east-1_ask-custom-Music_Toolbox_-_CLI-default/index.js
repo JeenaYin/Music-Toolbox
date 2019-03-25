@@ -30,12 +30,32 @@ const StartMetronomeIntentHandler = {
         } 
         return handlerInput.responseBuilder
             .speak(speechText)
-            .addAudioPlayerPlayDirective('REPLACE_ALL', 'https://jeenayin.github.io/static/120.mp3', "metronome", 0)
+            .addAudioPlayerPlayDirective('REPLACE_ALL', 'https://jeenayin.github.io/static/metronome/120.mp3', "metronome", 0)
             .getResponse();
     }
 };
 
-
+const StartDroneIntentHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            && handlerInput.requestEnvelope.request.intent.name === 'StartDroneIntent';
+    },
+    handle(handlerInput) {
+        var speechText = '';
+        if(handlerInput.requestEnvelope.request.intent.slots.note.value !== null) {
+            var note = handlerInput.requestEnvelope.request.intent.slots.note.value;
+            //var id = handlerInput.requestEnvelope.request.intent.slots.note.resolutions.resolutionsPerAuthority[].values[].value.id;
+            //console.log("note: "+note);
+            console.log(">>>>> slots: " + handlerInput.requestEnvelope.request.intent.slots.note.resolutions.resolutionsPerAuthority[]);
+            console.log("drone request with "+note);
+            speechText = "starting drone at " + note; 
+        } 
+        return handlerInput.responseBuilder
+            .speak(speechText)
+            .addAudioPlayerPlayDirective('REPLACE_ALL', 'https://soundgeneration.herokuapp.com/drone-'+note, "drone", 0)
+            .getResponse();
+    }
+};
 
 
 const HelpIntentHandler = {
@@ -82,22 +102,27 @@ const AudioPlayerEventHandler = {
 
     switch (audioPlayerEventName) {
       case 'PlaybackStarted':
-        console.log('PlaybackStarted');
         break;
 
       case 'PlaybackStopped':
-        console.log('PlaybackStopped');
+        break;
+
+      case 'PlaybackFinished':
         break;
 
       case 'PlaybackNearlyFinished':
-        console.log('nearly finished. enqueuing');
-        responseBuilder
-          .addAudioPlayerPlayDirective('ENQUEUE', 'https://jeenayin.github.io/static/120.mp3', "metronome", 0, "metronome");
-        console.log(responseBuilder);
+        var t = requestEnvelope.request.token;
+        if(t === "metronome") {
+            responseBuilder
+            .addAudioPlayerPlayDirective('ENQUEUE', 'https://jeenayin.github.io/static/metronome/120.mp3', "metronome", 0, "metronome");
+        } else if(t === "drone") {
+            responseBuilder
+            .addAudioPlayerPlayDirective('ENQUEUE', 'https://soundgeneration.herokuapp.com/drone-c4', "drone", 0, "drone");
+        }
         break;
 
       default:
-        throw new Error('cannot handle' + audioPlayerEventName);
+        throw new Error('cannot handle ' + audioPlayerEventName);
 
     }
     return responseBuilder.getResponse();
@@ -158,6 +183,7 @@ exports.handler = Alexa.SkillBuilders.custom()
     .addRequestHandlers(
         LaunchRequestHandler,
         StartMetronomeIntentHandler,
+        StartDroneIntentHandler,
         HelpIntentHandler,
         CancelAndStopIntentHandler,
         AudioPlayerEventHandler,
