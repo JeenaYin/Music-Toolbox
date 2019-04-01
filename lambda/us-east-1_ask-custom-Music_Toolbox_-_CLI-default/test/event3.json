@@ -1,0 +1,95 @@
+{
+    "version": "1.0",
+    "session": {
+        "new": false,
+        "sessionId": "amzn1.echo-api.session.f6382276-a721-4387-b1c0-dc5c54eef7fc",
+        "application": {
+            "applicationId": "amzn1.ask.skill.4ce1b0f8-ca75-43a7-b2ce-7968f705aa9a"
+        },
+        "attributes": {
+            "drone": {
+                "note": "C4"
+            }
+        },
+        "user": {
+            "userId": "amzn1.ask.account.AFCC627K7CLIRCL52M4VPQ5GROJ3H62FJV5PZDZQXRFRCNR45CVUCO66HOSOA3FTXB7H3GGGHHVZHCS45KJXUKEZZAY72TT27XH4GLFEWX65KMQMW5IQNMGQLKZI3NSHSDLMONUOXYKUBXUUVRFQBJXVAX475IGA3K4SXUHG3A4UK46ZIY6IFFBW2QK5ZVWQLNNIT23UPVIJ47Y"
+        }
+    },
+    "context": {
+        "AudioPlayer": {
+            "playerActivity": "IDLE"
+        },
+        "System": {
+            "application": {
+                "applicationId": "amzn1.ask.skill.4ce1b0f8-ca75-43a7-b2ce-7968f705aa9a"
+            },
+            "user": {
+                "userId": "amzn1.ask.account.AFCC627K7CLIRCL52M4VPQ5GROJ3H62FJV5PZDZQXRFRCNR45CVUCO66HOSOA3FTXB7H3GGGHHVZHCS45KJXUKEZZAY72TT27XH4GLFEWX65KMQMW5IQNMGQLKZI3NSHSDLMONUOXYKUBXUUVRFQBJXVAX475IGA3K4SXUHG3A4UK46ZIY6IFFBW2QK5ZVWQLNNIT23UPVIJ47Y"
+            },
+            "device": {
+                "deviceId": "amzn1.ask.device.AHTLKBPWUM2ZFK54OWVLIQR27RYGT2HJGSQYDDM26F2W6V645AGSSFRVIQVUXQIE377FTPMLKWALHRX4DVNCZG7QKKJVHPRATAAEYCYKQSTAXPUELLTWSYRUL5UDHG7JHNZ3B57W3NQXGYS5JIXMTXEZJ4GCV4GIYTSESEFYPXGH4FREV3EII",
+                "supportedInterfaces": {
+                    "AudioPlayer": {}
+                }
+            },
+            "apiEndpoint": "https://api.amazonalexa.com",
+            "apiAccessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjEifQ.eyJhdWQiOiJodHRwczovL2FwaS5hbWF6b25hbGV4YS5jb20iLCJpc3MiOiJBbGV4YVNraWxsS2l0Iiwic3ViIjoiYW16bjEuYXNrLnNraWxsLjRjZTFiMGY4LWNhNzUtNDNhNy1iMmNlLTc5NjhmNzA1YWE5YSIsImV4cCI6MTU1MzcxNDUyNCwiaWF0IjoxNTUzNzE0MjI0LCJuYmYiOjE1NTM3MTQyMjQsInByaXZhdGVDbGFpbXMiOnsiY29uc2VudFRva2VuIjpudWxsLCJkZXZpY2VJZCI6ImFtem4xLmFzay5kZXZpY2UuQUhUTEtCUFdVTTJaRks1NE9XVkxJUVIyN1JZR1QySEpHU1FZRERNMjZGMlc2VjY0NUFHU1NGUlZJUVZVWFFJRTM3N0ZUUE1MS1dBTEhSWDREVk5DWkc3UUtLSlZIUFJBVEFBRVlDWUtRU1RBWFBVRUxMVFdTWVJVTDVVREhHN0pITlozQjU3VzNOUVhHWVM1SklYTVRYRVpKNEdDVjRHSVlUU0VTRUZZUFhHSDRGUkVWM0VJSSIsInVzZXJJZCI6ImFtem4xLmFzay5hY2NvdW50LkFGQ0M2MjdLN0NMSVJDTDUyTTRWUFE1R1JPSjNINjJGSlY1UFpEWlFYUkZSQ05SNDVDVlVDTzY2SE9TT0EzRlRYQjdIM0dHR0hIVlpIQ1M0NUtKWFVLRVpaQVk3MlRUMjdYSDRHTEZFV1g2NUtNUU1XNUlRTk1HUUxLWkkzTlNIU0RMTU9OVU9YWUtVQlhVVVZSRlFCSlhWQVg0NzVJR0EzSzRTWFVIRzNBNFVLNDZaSVk2SUZGQlcyUUs1WlZXUUxOTklUMjNVUFZJSjQ3WSJ9fQ.hkYtInw9drSCvmw9miaz5WcRO93Oanq_l4YumB5WPaR52OSdJlh6BW2os6EA7N3u_ciFrxy5_eNjuMfj6iC0nBIlbumc6WbBmxz9D6VzGnj3QwCH9hoKLyjqPaflrgs_RHpRzDSLIs5RlX29R-si18DMBUtjnuXQpEBOLZn_8dtHkFtMQneS0VyaEoWAnQvKqSXrPwwVbX07QfIngGOun5ReqiFmoUscrld4A7TcODtrTGBAiBrkp5XqVT9erl9gAdBjnTbF0h05gPI1KtoYstvj5xPPdOSZCasd5mgK-Yh_ETOTk7USKwOJJQwgmcwgmFGWXFAac7ox7cAei9DQxQ"
+        },
+        "Viewport": {
+            "experiences": [
+                {
+                    "arcMinuteWidth": 246,
+                    "arcMinuteHeight": 144,
+                    "canRotate": false,
+                    "canResize": false
+                }
+            ],
+            "shape": "RECTANGLE",
+            "pixelWidth": 1024,
+            "pixelHeight": 600,
+            "dpi": 160,
+            "currentPixelWidth": 1024,
+            "currentPixelHeight": 600,
+            "touch": [
+                "SINGLE"
+            ]
+        }
+    },
+    "request": {
+        "type": "IntentRequest",
+        "requestId": "amzn1.echo-api.request.90dd537e-a890-4547-834b-b1cc2d559c47",
+        "timestamp": "2019-03-27T19:17:04Z",
+        "locale": "en-US",
+        "intent": {
+            "name": "StartDroneIntent",
+            "confirmationStatus": "NONE",
+            "slots": {
+                "note": {
+                    "name": "note",
+                    "value": "C4",
+                    "resolutions": {
+                        "resolutionsPerAuthority": [
+                            {
+                                "authority": "amzn1.er-authority.echo-sdk.amzn1.ask.skill.4ce1b0f8-ca75-43a7-b2ce-7968f705aa9a.MusicalNote",
+                                "status": {
+                                    "code": "ER_SUCCESS_MATCH"
+                                },
+                                "values": [
+                                    {
+                                        "value": {
+                                            "name": "c. four",
+                                            "id": "C4"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "confirmationStatus": "NONE",
+                    "source": "USER"
+                }
+            }
+        },
+        "dialogState": "COMPLETED"
+    }
+}

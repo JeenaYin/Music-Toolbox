@@ -1,14 +1,8 @@
-/* audio placeholder*/
-'use strict';
-
-exports.skill = {
-  appId: '',
-  dynamoDBTableName: 'audio placeholder',
-};
-
-exports.audioData = [
-  {
-    title: 'sampleClick',
-    url: 'https://jeenayin.github.io/static/120.wav',
-  }
-];
+exports.audioData = {
+	met : {
+		url : `https://jeenayin.github.io/static/metronome/`
+	},
+	drone: {
+		url : `https://jeenayin.github.io/static/drone/sine/`
+	}
+}

@@ -1,7 +1,7 @@
 {
     "interactionModel": {
         "languageModel": {
-            "invocationName": "music toolbox",
+            "invocationName": "let's practice",
             "intents": [
                 {
                     "name": "AMAZON.CancelIntent",
@@ -108,6 +108,10 @@
                         }
                     ],
                     "samples": [
+                        "let's tune the violin",
+                        "tune my violin",
+                        "let's tune my violin",
+                        "let's tune",
                         "tune",
                         "drone",
                         "start drone",
@@ -136,13 +140,13 @@
                         "play me an {note} please",
                         "give me a {note} please",
                         "give me an {note} please",
+                        "start a {note} please",
                         "start at {note} please",
                         "start drone at {note} please",
                         "start the drone at {note} please",
                         "start with a {note} please",
                         "start with an {note} please",
                         "drone at {note} please",
-
                         "play {note} drone",
                         "play a {note} drone",
                         "play an {note} drone",
@@ -150,9 +154,44 @@
                         "play me an {note} drone",
                         "give me a {note} drone",
                         "give me an {note} drone",
+                        "start a {note} drone",
                         "start at {note} drone",
                         "start with a {note} drone",
                         "start with an {note} drone"
+                    ]
+                },
+                {
+                    "name": "FasterIntent",
+                    "slots": [
+                        {
+                            "name": "Quantifier",
+                            "type": "Quantifier"
+                        }
+                    ],
+                    "samples": [
+                        "{Quantifier} quicker",
+                        "quicker",
+                        "{Quantifier} faster",
+                        "faster",
+                        "it's too slow",
+                        "too slow"
+                    ]
+                },
+                {
+                    "name": "SlowerIntent",
+                    "slots": [
+                        {
+                            "name": "Quantifier",
+                            "type": "Quantifier"
+                        }
+                    ],
+                    "samples": [
+                        "{Quantifier} less",
+                        "less",
+                        "{Quantifier} slower",
+                        "slower",
+                        "it's too fast",
+                        "too fast"
                     ]
                 }
             ],
@@ -161,7 +200,7 @@
                     "name": "MusicalNote",
                     "values": [
                         {
-                            "id": "a2",
+                            "id": "A2",
                             "name": {
                                 "value": "a. two",
                                 "synonyms": [
@@ -173,7 +212,7 @@
                             }
                         },
                         {
-                            "id": "a3",
+                            "id": "A3",
                             "name": {
                                 "value": "a. three",
                                 "synonyms": [
@@ -184,7 +223,7 @@
                             }
                         },
                         {
-                            "id": "a4",
+                            "id": "A4",
                             "name": {
                                 "value": "a. four",
                                 "synonyms": [
@@ -197,7 +236,7 @@
                             }
                         },
                         {
-                            "id": "b3",
+                            "id": "B4",
                             "name": {
                                 "value": "b. three",
                                 "synonyms": [
@@ -206,20 +245,19 @@
                             }
                         },
                         {
-                            "id": "bf3",
+                            "id": "Bb4",
                             "name": {
                                 "value": "b. flat",
                                 "synonyms": [
-                                    "b. flat three"
+                                    "b. flat four"
                                 ]
                             }
                         },
                         {
-                            "id": "c3",
+                            "id": "C3",
                             "name": {
                                 "value": "c. three",
                                 "synonyms": [
-                                    "c.",
                                     "middle c.",
                                     "two sixty",
                                     "two sixty one",
@@ -229,17 +267,18 @@
                             }
                         },
                         {
-                            "id": "c4",
+                            "id": "C4",
                             "name": {
                                 "value": "c. four",
                                 "synonyms": [
+                                    "c.",
                                     "high c.",
                                     "higher c."
                                 ]
                             }
                         },
                         {
-                            "id": "d3",
+                            "id": "D3",
                             "name": {
                                 "value": "d. three",
                                 "synonyms": [
@@ -248,7 +287,7 @@
                             }
                         },
                         {
-                            "id": "e4",
+                            "id": "E4",
                             "name": {
                                 "value": "e. four",
                                 "synonyms": [
@@ -259,7 +298,7 @@
                             }
                         },
                         {
-                            "id": "e2",
+                            "id": "E2",
                             "name": {
                                 "value": "e. two",
                                 "synonyms": [
@@ -268,11 +307,31 @@
                             }
                         },
                         {
-                            "id": "g3",
+                            "id": "G3",
                             "name": {
                                 "value": "g. three",
                                 "synonyms": [
                                     "g."
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Quantifier",
+                    "values": [
+                        {
+                            "id": "-",
+                            "name": {
+                                "value": "a little"
+                            }
+                        },
+                        {
+                            "id": "+",
+                            "name": {
+                                "value": "a lot",
+                                "synonyms": [
+                                    "much"
                                 ]
                             }
                         }

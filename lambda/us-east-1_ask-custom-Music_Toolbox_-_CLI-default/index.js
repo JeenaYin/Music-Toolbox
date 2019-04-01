@@ -2,14 +2,24 @@
 // Please visit https://alexa.design/cookbook for additional examples on implementing slots, dialog management,
 // session persistence, api calls, and more.
 const Alexa = require('ask-sdk-core');
-const constants = require('constants');
+const constants = require('./constants');
+
+// sessionAttributes format
+// sessionAttributes = {
+//     metronome = {
+//                     tempo : 0
+//                 },
+//         drone = {
+//                     note : 'a4'
+//                 }
+// };
 
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
         return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
     },
     handle(handlerInput) {
-        const speechText = 'Welcome! Would you like to use a drone or metronome? Say help for instructions.';
+        const speechText = `<audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_01'/> <prosody rate="fast"> Time to practice! Would you like a drone or metronome? </prosody>`;
         return handlerInput.responseBuilder
             .speak(speechText)
             .reprompt(speechText)
@@ -27,13 +37,147 @@ const StartMetronomeIntentHandler = {
         if(handlerInput.requestEnvelope.request.intent.slots.BPM.value !== null) {
             var bpm = handlerInput.requestEnvelope.request.intent.slots.BPM.value;
             speechText = "starting metronome at " + bpm; 
+
+            // update sessionattributes
+            const SA = handlerInput.attributesManager.getSessionAttributes();
+            const { metronome } = SA;
+            if(typeof metronome === 'undefined') { 
+                SA.metronome = { tempo : parseInt(bpm) } 
+                console.log('initialized metronome')
+            } 
+            else { 
+                SA.metronome.tempo = parseInt(bpm) 
+                console.log('metronome exists')
+            }
+            
+            handlerInput.attributesManager.setSessionAttributes(SA);
+            console.log(handlerInput.attributesManager.getSessionAttributes())
         } 
         return handlerInput.responseBuilder
             .speak(speechText)
-            .addAudioPlayerPlayDirective('REPLACE_ALL', 'https://jeenayin.github.io/static/metronome/120.mp3', "metronome", 0)
+            .addAudioPlayerPlayDirective('REPLACE_ALL', constants.audioData.met.url + `${bpm}.mp3`, `metronome.${bpm}`, 0)
             .getResponse();
     }
 };
+
+const FasterIntent = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            && handlerInput.requestEnvelope.request.intent.name == 'FasterIntent';
+    },
+    handle(handlerInput) {
+        var inc = 10;
+        var curTemp;
+        const SA = handlerInput.attributesManager.getSessionAttributes();
+        const { metronome } = SA;
+
+        if(typeof metronome === 'undefined') {
+            console.log('FasterIntent called when meteronome is not playing');
+
+            return handlerInput.responseBuilder
+                .speak('say start metronome to start') 
+                .getResponse();
+
+        } else {
+            console.log(handlerInput.requestEnvelope.request.intent.slots.Quantifier);
+            console.log(handlerInput.requestEnvelope.request.intent.slots.Quantifier.value);            
+            var q = '';
+
+            // if user includes a quantifier to faster command
+            if(typeof handlerInput.requestEnvelope.request.intent.slots.Quantifier.value !== 'undefined') {
+                q = handlerInput.requestEnvelope.request.intent.slots.Quantifier.value;
+                var id = handlerInput.requestEnvelope.request.intent.slots.Quantifier.resolutions.resolutionsPerAuthority[0].values[0].value.id;
+                switch(id) {
+                    case '-':
+                        inc -= 5;
+                        console.log('quantifier = '+q);
+                        console.log('a little faster');
+                        break;
+                    case '+':
+                        inc += 5;
+                        console.log('quantifier = '+q);
+                        console.log('a lot faster');
+                        break;
+                    default:
+                        console.log('quantifier = '+q);
+                        break;
+                }
+            }
+
+            SA.metronome.tempo += inc;
+            curTemp = SA.metronome.tempo;
+            console.log(`Tempo increased to ${curTemp}`);
+
+            console.log('new url: '+ constants.audioData.met.url + `${curTemp}.mp3`)
+            return handlerInput.responseBuilder
+                .speak(`playing ${q} faster`)
+                .addAudioPlayerPlayDirective('REPLACE_ALL', constants.audioData.met.url + `${curTemp}.mp3`, `metronome.${curTemp}`, 0)
+                .withShouldEndSession(false)
+                .getResponse();
+            
+        }
+    }
+};
+
+const SlowerIntent = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            && handlerInput.requestEnvelope.request.intent.name == 'SlowerIntent';
+    },
+    handle(handlerInput) {
+        var inc = 10;
+        var curTemp;
+        const SA = handlerInput.attributesManager.getSessionAttributes();
+        const { metronome } = SA;
+
+        if(typeof metronome === 'undefined') {
+            console.log('SlowerIntent called when meteronome is not playing');
+
+            return handlerInput.responseBuilder
+                .speak('say start metronome to start') 
+                .getResponse();
+
+        } else {
+            console.log(handlerInput.requestEnvelope.request.intent.slots.Quantifier);
+            console.log(handlerInput.requestEnvelope.request.intent.slots.Quantifier.value);            
+            var q = '';
+
+            // if user includes a quantifier to faster command
+            if(typeof handlerInput.requestEnvelope.request.intent.slots.Quantifier.value !== 'undefined') {
+                q = handlerInput.requestEnvelope.request.intent.slots.Quantifier.value;
+                var id = handlerInput.requestEnvelope.request.intent.slots.Quantifier.resolutions.resolutionsPerAuthority[0].values[0].value.id;
+                switch(id) {
+                    case '-':
+                        inc -= 5;
+                        console.log('quantifier = '+q);
+                        console.log('a little faster');
+                        break;
+                    case '+':
+                        inc += 5;
+                        console.log('quantifier = '+q);
+                        console.log('a lot faster');
+                        break;
+                    default:
+                        console.log('quantifier = '+q);
+                        break;
+                }
+            }
+
+            SA.metronome.tempo -= inc;
+            curTemp = SA.metronome.tempo;
+            console.log(`Tempo decreased to ${curTemp}`);
+
+            console.log('new url: '+ constants.audioData.met.url + `${curTemp}.mp3`)
+            return handlerInput.responseBuilder
+                .speak(`playing ${q} slower`)
+                .addAudioPlayerPlayDirective('REPLACE_ALL', constants.audioData.met.url + `${curTemp}.mp3`, `metronome.${curTemp}`, 0)
+                .withShouldEndSession(false)
+                .getResponse();
+            
+        }
+    }
+};
+
 
 const StartDroneIntentHandler = {
     canHandle(handlerInput) {
@@ -42,17 +186,34 @@ const StartDroneIntentHandler = {
     },
     handle(handlerInput) {
         var speechText = '';
-        if(handlerInput.requestEnvelope.request.intent.slots.note.value !== null) {
+        if(typeof handlerInput.requestEnvelope.request.intent.slots.note.value !== 'undefined') {
             var note = handlerInput.requestEnvelope.request.intent.slots.note.value;
-            //var id = handlerInput.requestEnvelope.request.intent.slots.note.resolutions.resolutionsPerAuthority[].values[].value.id;
-            //console.log("note: "+note);
-            console.log(">>>>> slots: " + handlerInput.requestEnvelope.request.intent.slots.note.resolutions.resolutionsPerAuthority[]);
-            console.log("drone request with "+note);
-            speechText = "starting drone at " + note; 
+            var id = handlerInput.requestEnvelope.request.intent.slots.note.resolutions.resolutionsPerAuthority[0].values[0].value.id;
+            console.log("id: "+handlerInput.requestEnvelope.request.intent.slots.note.resolutions.resolutionsPerAuthority[0].values[0].value.id);
+            console.log("drone request: "+note);
+            //speechText = "starting drone at " + `<say-as interpret-as="spell-out">` + note + `</say-as>`;
+            speechText = "starting drone at " + note;
+
+            // update sessionattributes
+            const SA = handlerInput.attributesManager.getSessionAttributes();
+            const { drone } = SA;
+            if(typeof drone === 'undefined') { 
+                SA.drone = { note : id } 
+                console.log('initialized drone')
+            } 
+            else { 
+                SA.drone.note = id 
+                console.log('drone exists')
+            }
+            
+            handlerInput.attributesManager.setSessionAttributes(SA);
+            console.log(handlerInput.attributesManager.getSessionAttributes())
         } 
         return handlerInput.responseBuilder
             .speak(speechText)
-            .addAudioPlayerPlayDirective('REPLACE_ALL', 'https://soundgeneration.herokuapp.com/drone-'+note, "drone", 0)
+            //.reprompt(speechText)
+            .addAudioPlayerPlayDirective('REPLACE_ALL', constants.audioData.drone.url + `${id}.mp3`, `drone.${id}`, 0)
+            .withShouldEndSession(false)
             .getResponse();
     }
 };
@@ -64,7 +225,7 @@ const HelpIntentHandler = {
             && handlerInput.requestEnvelope.request.intent.name === 'AMAZON.HelpIntent';
     },
     handle(handlerInput) {
-        const speechText = 'To use a metronome, say, start metronome.';
+        const speechText = 'To use a metronome, say, start metronome. To use a drone, say, start drone.';
 
         return handlerInput.responseBuilder
             .speak(speechText)
@@ -83,11 +244,12 @@ const CancelAndStopIntentHandler = {
                 || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.PauseIntent');
     },
     handle(handlerInput) {
-        const speechText = 'Goodbye!';
+        const speechText = 'stopped';
         return handlerInput.responseBuilder
             .addAudioPlayerClearQueueDirective('CLEAR_ALL')
             .addAudioPlayerStopDirective()
             .speak(speechText)
+            .withShouldEndSession(false)
             .getResponse();
     },
 };
@@ -99,7 +261,6 @@ const AudioPlayerEventHandler = {
   handle(handlerInput) {
     const { requestEnvelope, attributesManager, responseBuilder } = handlerInput;
     const audioPlayerEventName = requestEnvelope.request.type.split('.')[1];
-
     switch (audioPlayerEventName) {
       case 'PlaybackStarted':
         break;
@@ -112,12 +273,14 @@ const AudioPlayerEventHandler = {
 
       case 'PlaybackNearlyFinished':
         var t = requestEnvelope.request.token;
-        if(t === "metronome") {
+        if(t.startsWith("metronome")) {
+            tempo = t.split('.')[1];
             responseBuilder
-            .addAudioPlayerPlayDirective('ENQUEUE', 'https://jeenayin.github.io/static/metronome/120.mp3', "metronome", 0, "metronome");
-        } else if(t === "drone") {
+            .addAudioPlayerPlayDirective('ENQUEUE', constants.audioData.met.url + `${tempo}.mp3`, t, 0, t);
+        } else if(t.startsWith("drone")) {
+            note = t.split('.')[1];
             responseBuilder
-            .addAudioPlayerPlayDirective('ENQUEUE', 'https://soundgeneration.herokuapp.com/drone-c4', "drone", 0, "drone");
+            .addAudioPlayerPlayDirective('ENQUEUE', constants.audioData.drone.url + `${note}.mp3`, t, 0, t);
         }
         break;
 
@@ -153,7 +316,7 @@ const IntentReflectorHandler = {
 
         return handlerInput.responseBuilder
             .speak(speechText)
-            //.reprompt('add a reprompt if you want to keep the session open for the user to respond')
+            .reprompt(speechText)
             .getResponse();
     }
 };
@@ -167,7 +330,7 @@ const ErrorHandler = {
     },
     handle(handlerInput, error) {
         console.log(`~~~~ Error handled: ${error.message}`);
-        const speechText = `Sorry, I couldn't understand what you said. Please try again.`;
+        const speechText = `Sorry, error message: ${error.message}.`;
 
         return handlerInput.responseBuilder
             .speak(speechText)
@@ -183,6 +346,7 @@ exports.handler = Alexa.SkillBuilders.custom()
     .addRequestHandlers(
         LaunchRequestHandler,
         StartMetronomeIntentHandler,
+        FasterIntent,
         StartDroneIntentHandler,
         HelpIntentHandler,
         CancelAndStopIntentHandler,
