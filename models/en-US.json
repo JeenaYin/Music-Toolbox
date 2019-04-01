@@ -243,6 +243,22 @@
                         "I'd like to practice for {dur}",
                         "I want to practice for {dur}"
                     ]
+                },
+                {
+                    "name": "StartRapIntent",
+                    "slots": [],
+                    "samples": [
+                        "start human metronome",
+                        "human metronome",
+                        "human metronome at eighty",
+                        "rap at eighty b. p. m.",
+                        "rap at eighty",
+                        "start rapping",
+                        "rap for me",
+                        "rap for me alexa",
+                        "rap like drake",
+                        "rap"
+                    ]
                 }
             ],
             "types": [

@@ -3,7 +3,8 @@
 // session persistence, api calls, and more.
 const Alexa = require('ask-sdk-core');
 const constants = require('./constants');
-const Lyrics = require('./lyrics');
+const lyrics = constants.lyrics.line1;
+const met = require('./met')
 
 // sessionAttributes format
 // sessionAttributes = {
@@ -40,8 +41,15 @@ const generateLyrics = (str) => {
     var arr = str.split(/,| /);
     var firstArr = arr.slice(0, 4);
     var restArr = arr.slice(4);
+
+    var b = '0.4'
+    var pickUp = `<phoneme alphabet="ipa" ph="k">k</phoneme><break time="${b}s"/>`;
+    pickUp += pickUp
+    pickUp += pickUp
+
     var markedUpLyrics = processLyricsArr(firstArr) + processLyricsArr(restArr); // randomly marked-up string
-    return `<say-as interpret-as="interjection"><prosody pitch='-10%' rate="fast" volume="loud">${markedUpLyrics}</prosody></say-as> `
+    return `haha really? Cool let me try <break time="1s"/>` + `${pickUp}<say-as interpret-as="interjection"><prosody pitch='-10%' rate="fast" volume="loud"> \
+            ${markedUpLyrics}</prosody></say-as> `
 }
 
 const processLyricsArr = (words) => {
@@ -75,9 +83,7 @@ const LaunchRequestHandler = {
         return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
     },
     handle(handlerInput) {
-        //const speechText = `<audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_01'/> <prosody rate="fast"> Time to practice! You can set a goal, use a metronome or drone. ${line}</prosody>`;
-        const line = generateLyrics(Lyrics.lyrics.line1);
-        const speechText = line;
+        const speechText = `<audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_01'/> <prosody rate="fast"> Time to practice! You can set a goal, use a metronome or a drone.</prosody>`;
         
         const SA = handlerInput.attributesManager.getSessionAttributes();
         SA.starttime = handlerInput.requestEnvelope.request.timestamp;
@@ -295,6 +301,21 @@ const SlowerIntentHandler = {
     }
 };
 
+const StartRapIntentHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            && handlerInput.requestEnvelope.request.intent.name === 'StartRapIntent';
+    },
+    handle(handlerInput) {
+        const line = generateLyrics(lyrics);
+        const speechText = line;
+        const res = `<break time="1s"/>How do you think?`
+        return handlerInput.responseBuilder
+            .speak(speechText + res)
+            .withShouldEndSession(false)
+            .getResponse()
+    }
+};
 
 const StartDroneIntentHandler = {
     canHandle(handlerInput) {
@@ -482,6 +503,7 @@ exports.handler = Alexa.SkillBuilders.custom()
         StartMetronomeIntentHandler,
         FasterIntentHandler,
         SlowerIntentHandler,
+        StartRapIntentHandler,
         StartDroneIntentHandler,
         PracticeTimeIntentHandler,
         HelpIntentHandler,
