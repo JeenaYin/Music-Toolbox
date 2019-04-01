@@ -48,7 +48,7 @@ const generateLyrics = (str) => {
     pickUp += pickUp
 
     var markedUpLyrics = processLyricsArr(firstArr) + processLyricsArr(restArr); // randomly marked-up string
-    return `haha really? Cool let me try <break time="1s"/>` + `${pickUp}<say-as interpret-as="interjection"><prosody pitch='-10%' rate="fast" volume="loud"> \
+    return `${pickUp}<say-as interpret-as="interjection"><prosody pitch='-10%' rate="fast" volume="loud"> \
             ${markedUpLyrics}</prosody></say-as> `
 }
 
@@ -301,15 +301,22 @@ const SlowerIntentHandler = {
     }
 };
 
-const StartRapIntentHandler = {
+const StartRapEntertainIntentHandler = {
     canHandle(handlerInput) {
         return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-            && handlerInput.requestEnvelope.request.intent.name === 'StartRapIntent';
+            && (handlerInput.requestEnvelope.request.intent.name === 'StartRapIntent'
+            || handlerInput.requestEnvelope.request.intent.name === 'EntertainIntent');
     },
     handle(handlerInput) {
         const line = generateLyrics(lyrics);
-        const speechText = line;
+        var speechText = line;
         const res = `<break time="1s"/>How do you think?`
+        if (handlerInput.requestEnvelope.request.intent.name === 'StartRapIntent') {
+            speechText = `Haha let me try. <break time="1s"/>` + speechText;
+        } else {
+            speechText = `hmm... I can rap for you. <break time="1s"/>` + speechText;
+        }
+        
         return handlerInput.responseBuilder
             .speak(speechText + res)
             .withShouldEndSession(false)
@@ -372,6 +379,19 @@ const PracticeTimeIntentHandler = {
     }
 };
 
+const AppreciateIntentHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            && handlerInput.requestEnvelope.request.intent.name === 'AppreciateIntent';
+    },
+    handle(handlerInput) {
+        const speechText = 'No problem! Anything else I can do for you?';
+
+        return handlerInput.responseBuilder
+            .speak(speechText)
+            .getResponse();
+    }
+};
 
 const HelpIntentHandler = {
     canHandle(handlerInput) {
@@ -503,9 +523,10 @@ exports.handler = Alexa.SkillBuilders.custom()
         StartMetronomeIntentHandler,
         FasterIntentHandler,
         SlowerIntentHandler,
-        StartRapIntentHandler,
+        StartRapEntertainIntentHandler,
         StartDroneIntentHandler,
         PracticeTimeIntentHandler,
+        AppreciateIntentHandler,
         HelpIntentHandler,
         CancelAndStopIntentHandler,
         AudioPlayerEventHandler,

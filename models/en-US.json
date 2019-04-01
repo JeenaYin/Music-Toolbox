@@ -259,6 +259,28 @@
                         "rap like drake",
                         "rap"
                     ]
+                },
+                {
+                    "name": "AppreciateIntent",
+                    "slots": [],
+                    "samples": [
+                        "thank you alexa",
+                        "you are the best",
+                        "you did great",
+                        "thank you"
+                    ]
+                },
+                {
+                    "name": "EntertainIntent",
+                    "slots": [],
+                    "samples": [
+                        "tired",
+                        "I want to stop practicing",
+                        "I'm sleepy",
+                        "I don't want to practice",
+                        "I am tired",
+                        "I'm tired"
+                    ]
                 }
             ],
             "types": [
