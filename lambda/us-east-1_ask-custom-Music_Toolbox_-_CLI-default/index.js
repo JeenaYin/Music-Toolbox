@@ -6,6 +6,8 @@ const constants = require('./constants');
 
 // sessionAttributes format
 // sessionAttributes = {
+//     starttime : '',
+//     goal : 0, // minutes
 //     metronome = {
 //                     tempo : 0
 //                 },
@@ -14,18 +16,98 @@ const constants = require('./constants');
 //                 }
 // };
 
+const timeCalc = (start, end, goal) => {
+    var firstCol = start.indexOf(':');
+    var hr_str = start.substring(firstCol-2, firstCol);
+    var mn_str = start.substring(firstCol+1, firstCol+3);
+    var hr_end = start.substring(firstCol-2, firstCol);
+    var mn_end = start.substring(firstCol+1, firstCol+3);
+    var span = (hr_end * 60 + mn_end) - (hr_str * 60 - mn_str);
+    console.log("starting hour: " + hr_str + "starting minute: " + mn_str + "ending hour: " + hr_end + "ending hour: " + mn_end);
+    console.log('span: '+span+' goal: '+goal);
+    
+    return `you have practiced for ${span} minutes.` + checkGoal(span, goal);
+};
+
+const checkGoal = (span, goal) => {
+    var speechText = `you have completed your goal by ${span*100/goal} percent`
+    console.log(speechText)
+    return speechText
+}
+
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
         return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
     },
     handle(handlerInput) {
-        const speechText = `<audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_01'/> <prosody rate="fast"> Time to practice! Would you like a drone or metronome? </prosody>`;
+        const speechText = `<audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_01'/> <prosody rate="fast"> Time to practice! You can set a goal, use a metronome or drone. </prosody>`;
+        
+        const SA = handlerInput.attributesManager.getSessionAttributes();
+        SA.starttime = handlerInput.requestEnvelope.request.timestamp;
+        handlerInput.attributesManager.setSessionAttributes(SA);
+
+        console.log("receiving LaunchRequest at: " + SA.starttime);
+
         return handlerInput.responseBuilder
             .speak(speechText)
             .reprompt(speechText)
             .getResponse();
     }
 };
+
+const SetGoalIntentHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            && handlerInput.requestEnvelope.request.intent.name === 'SetGoalIntent';
+    },
+    handle(handlerInput) {
+        const SA = handlerInput.attributesManager.getSessionAttributes();
+        var goal = 0;
+
+        if(handlerInput.requestEnvelope.request.intent.slots.dur.value !== null) {
+            var textGoal = handlerInput.requestEnvelope.request.intent.slots.dur.value;
+            console.log('text goal is: ' + textGoal);
+            var hr = 0;
+            var mn = 0;
+
+            if(!textGoal.startsWith('PT')) {
+                return handlerInput.responseBuilder
+                    .speak('too much time, I cannot handle it. define your goal in terms of hours and minutes.')
+                    .getResponse();
+            } else {
+                textGoal = textGoal.substring(2)
+                if(textGoal.includes('H')) {
+                    hr = parseInt(textGoal.substring(0, textGoal.indexOf('H')));
+                    textGoal = textGoal.substring(textGoal.indexOf('H')+1);
+                }
+                if(textGoal.includes('M')) {
+                    mn = parseInt(textGoal.substring(0, textGoal.indexOf('M')));
+                }
+            }
+            goal = 60 * hr + mn;
+        } 
+
+        SA.starttime = goal;
+        handlerInput.attributesManager.setSessionAttributes(SA);
+        console.log('goal set: ' + SA.starttime);
+
+        var speechText = ''
+        if (hr !== 0) {
+            speechText = `${hr} hour`
+            if (hr > 1) { speechText += 's' }
+        }
+        if (hr !== 0 && mn !== 0) { speechText += ' and '}
+        if (mn !== 0) {
+            speechText += `${mn} minute`
+            if(mn > 1) { speechText += 's' }
+        }
+
+        return handlerInput.responseBuilder
+            .speak("you have set your goal to be " + speechText)
+            .withShouldEndSession(false)
+            .getResponse();
+    }
+}
 
 const StartMetronomeIntentHandler = {
     canHandle(handlerInput) {
@@ -60,7 +142,7 @@ const StartMetronomeIntentHandler = {
     }
 };
 
-const FasterIntent = {
+const FasterIntentHandler = {
     canHandle(handlerInput) {
         return handlerInput.requestEnvelope.request.type === 'IntentRequest'
             && handlerInput.requestEnvelope.request.intent.name == 'FasterIntent';
@@ -112,14 +194,13 @@ const FasterIntent = {
             return handlerInput.responseBuilder
                 .speak(`playing ${q} faster`)
                 .addAudioPlayerPlayDirective('REPLACE_ALL', constants.audioData.met.url + `${curTemp}.mp3`, `metronome.${curTemp}`, 0)
-                .withShouldEndSession(false)
                 .getResponse();
             
         }
     }
 };
 
-const SlowerIntent = {
+const SlowerIntentHandler = {
     canHandle(handlerInput) {
         return handlerInput.requestEnvelope.request.type === 'IntentRequest'
             && handlerInput.requestEnvelope.request.intent.name == 'SlowerIntent';
@@ -171,7 +252,6 @@ const SlowerIntent = {
             return handlerInput.responseBuilder
                 .speak(`playing ${q} slower`)
                 .addAudioPlayerPlayDirective('REPLACE_ALL', constants.audioData.met.url + `${curTemp}.mp3`, `metronome.${curTemp}`, 0)
-                .withShouldEndSession(false)
                 .getResponse();
             
         }
@@ -213,7 +293,23 @@ const StartDroneIntentHandler = {
             .speak(speechText)
             //.reprompt(speechText)
             .addAudioPlayerPlayDirective('REPLACE_ALL', constants.audioData.drone.url + `${id}.mp3`, `drone.${id}`, 0)
-            .withShouldEndSession(false)
+            //.withShouldEndSession(false)
+            .getResponse();
+    }
+};
+
+const PracticeTimeIntentHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            && handlerInput.requestEnvelope.request.intent.name === 'PracticeTimeIntent';
+    },
+    handle(handlerInput) {
+        const SA = handlerInput.attributesManager.getSessionAttributes();
+        const { starttime } = SA;
+        var curTime = handlerInput.requestEnvelope.request.timestamp;
+        console.log("current time is " + curTime);
+        return handlerInput.responseBuilder
+            .speak(timeCalc(curTime, SA.starttime, SA.goal))
             .getResponse();
     }
 };
@@ -345,9 +441,12 @@ const ErrorHandler = {
 exports.handler = Alexa.SkillBuilders.custom()
     .addRequestHandlers(
         LaunchRequestHandler,
+        SetGoalIntentHandler,
         StartMetronomeIntentHandler,
-        FasterIntent,
+        FasterIntentHandler,
+        SlowerIntentHandler,
         StartDroneIntentHandler,
+        PracticeTimeIntentHandler,
         HelpIntentHandler,
         CancelAndStopIntentHandler,
         AudioPlayerEventHandler,

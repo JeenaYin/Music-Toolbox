@@ -193,6 +193,56 @@
                         "it's too fast",
                         "too fast"
                     ]
+                },
+                {
+                    "name": "PracticeTimeIntent",
+                    "slots": [],
+                    "samples": [
+                        "how long have I been practicing",
+                        "how much time",
+                        "how long",
+                        "how long have I",
+                        "how much time have I practiced",
+                        "how long have we practived",
+                        "how long have I practiced"
+                    ]
+                },
+                {
+                    "name": "SetGoalIntent",
+                    "slots": [
+                        {
+                            "name": "dur",
+                            "type": "AMAZON.DURATION",
+                            "samples": [
+                                "let's practice for {dur}",
+                                "I would like to play music for {dur}",
+                                "I want to practice for {dur}",
+                                "for {dur}",
+                                "about {dur}",
+                                "{dur}"
+                            ]
+                        }
+                    ],
+                    "samples": [
+                        "I have a goal",
+                        "I want to set a goal",
+                        "I would like to set a goal",
+                        "Yes I have a goal",
+                        "Yes I want to set a goal",
+                        "Yes I would like to set a goal",
+                        "I have a goal for {dur}",
+                        "I want to set a goal for {dur}",
+                        "I would like to set a goal for {dur}",
+                        "Yes I have a goal for {dur}",
+                        "Yes I want to set a goal for {dur}",
+                        "Yes I would like to set a goal for {dur}",
+                        "I would like to play music for {dur}",
+                        "let's practice for {dur}",
+                        "I want to play music for {dur}",
+                        "I would like to practice for {dur}",
+                        "I'd like to practice for {dur}",
+                        "I want to practice for {dur}"
+                    ]
                 }
             ],
             "types": [
@@ -390,6 +440,22 @@
                             ]
                         }
                     ]
+                },
+                {
+                    "name": "SetGoalIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "dur",
+                            "type": "AMAZON.DURATION",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1133396101916.86656537984"
+                            }
+                        }
+                    ]
                 }
             ],
             "delegationStrategy": "ALWAYS"
@@ -441,6 +507,15 @@
                     {
                         "type": "PlainText",
                         "value": "To start a drone, please say a valid musical note or frequency."
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1133396101916.86656537984",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "How long do you want to practice?"
                     }
                 ]
             }
