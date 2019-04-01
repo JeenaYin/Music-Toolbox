@@ -3,6 +3,7 @@
 // session persistence, api calls, and more.
 const Alexa = require('ask-sdk-core');
 const constants = require('./constants');
+const Lyrics = require('./lyrics');
 
 // sessionAttributes format
 // sessionAttributes = {
@@ -35,12 +36,48 @@ const checkGoal = (span, goal) => {
     return speechText
 }
 
+const generateLyrics = (str) => {
+    var arr = str.split(/,| /);
+    var firstArr = arr.slice(0, 4);
+    var restArr = arr.slice(4);
+    var markedUpLyrics = processLyricsArr(firstArr) + processLyricsArr(restArr); // randomly marked-up string
+    return `<say-as interpret-as="interjection"><prosody pitch='-10%' rate="fast" volume="loud">${markedUpLyrics}</prosody></say-as> `
+}
+
+const processLyricsArr = (words) => {
+    var r1 = Math.floor(Math.random() * 4);     // 0 - 3
+    var r2 = Math.floor(Math.random() * 3) + 2; // 2 - 4
+    var r3 = Math.floor(Math.random() * 3);     // 0 - 2
+    var b = '0.1';
+
+    var cur;    
+    var rest;      // rest of words array
+    var curString; // a string
+
+    if(words.length <= 4) {
+        return `<emphasis level="reduced"> ` + words.join(` <break time="${b}s" /> `) + `</emphasis> `;
+    } else {
+        cur = words.slice(0, r2)
+        rest = words.slice(r2)
+        curString = cur.join(` `);
+        if(r3 === 1) {
+            curString = ` <break strength='x-weak' time="${b}s" />  <emphasis level="strong">${curString}</emphasis> `
+        } else if (r3 === 2) {
+            curString = ` <break strength='x-weak' time="${b}s" />  <emphasis level="strong">${curString}</emphasis> `
+        }
+    }
+
+    return curString.concat(" "+processLyricsArr(rest))
+}
+
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
         return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
     },
     handle(handlerInput) {
-        const speechText = `<audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_01'/> <prosody rate="fast"> Time to practice! You can set a goal, use a metronome or drone. </prosody>`;
+        //const speechText = `<audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_01'/> <prosody rate="fast"> Time to practice! You can set a goal, use a metronome or drone. ${line}</prosody>`;
+        const line = generateLyrics(Lyrics.lyrics.line1);
+        const speechText = line;
         
         const SA = handlerInput.attributesManager.getSessionAttributes();
         SA.starttime = handlerInput.requestEnvelope.request.timestamp;
