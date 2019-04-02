@@ -10,7 +10,7 @@
         },
         "interactionModel": {
           "en-US": {
-            "eTag": "8220fb48cf00be1e6abb19996a5c6125"
+            "eTag": "8bfea87e444bc1b9049dfd25fed232e3"
           }
         },
         "lambda": [
@@ -23,7 +23,7 @@
             "codeUri": "lambda/us-east-1_ask-custom-Music_Toolbox_-_CLI-default",
             "functionName": "ask-custom-Music_Toolbox_-_CLI-default",
             "handler": "index.handler",
-            "revisionId": "0633641c-316f-4021-86a6-00df1a7afe2d",
+            "revisionId": "306f4f49-04e7-452b-97a3-8694ea57055d",
             "runtime": "nodejs8.10"
           }
         ]

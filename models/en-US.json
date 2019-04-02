@@ -335,9 +335,38 @@
                         {
                             "id": "Bb4",
                             "name": {
-                                "value": "b. flat",
+                                "value": "b. flat four",
                                 "synonyms": [
                                     "b. flat four"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "Bb3",
+                            "name": {
+                                "value": "b. flat",
+                                "synonyms": [
+                                    "b. flat three"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "F3",
+                            "name": {
+                                "value": "f.",
+                                "synonyms": [
+                                    "f. three"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "F3cello",
+                            "name": {
+                                "value": "f. with cello",
+                                "synonyms": [
+                                    "f. three with cello",
+                                    "f. three with a cello",
+                                    "f. with a cello"
                                 ]
                             }
                         },
