@@ -47,16 +47,37 @@
                         }
                     ],
                     "samples": [
+                        "play a metronome",
                         "metronome",
                         "metronome at {BPM}",
                         "metronome at b. p. m. {BPM}",
                         "metronome with {BPM} b. p. m.",
                         "metronome with b. p. m. {BPM}",
+                        "a metronome",
+                        "a metronome at {BPM}",
+                        "a metronome at b. p. m. {BPM}",
+                        "a metronome with {BPM} b. p. m.",
+                        "a metronome with b. p. m. {BPM}",
+                        "the metronome",
+                        "the metronome at {BPM}",
+                        "the metronome at b. p. m. {BPM}",
+                        "the metronome with {BPM} b. p. m.",
+                        "the metronome with b. p. m. {BPM}",
                         "start metronome",
                         "start metronome at {BPM}",
                         "start metronome at b. p. m. {BPM}",
                         "start metronome with {BPM} b. p. m.",
                         "start metronome with b. p. m. {BPM}",
+                        "start the metronome",
+                        "start the metronome at {BPM}",
+                        "start the metronome at b. p. m. {BPM}",
+                        "start the metronome with {BPM} b. p. m.",
+                        "start the metronome with b. p. m. {BPM}",
+                        "start a metronome",
+                        "start a metronome at {BPM}",
+                        "start a metronome at b. p. m. {BPM}",
+                        "start a metronome with {BPM} b. p. m.",
+                        "start a metronome with b. p. m. {BPM}",
                         "and start metronome",
                         "and start metronome at {BPM}",
                         "and start metronome at b. p. m. {BPM}",
@@ -67,16 +88,36 @@
                         "open metronome at b. p. m. {BPM}",
                         "open metronome with {BPM} b. p. m.",
                         "open metronome with b. p. m. {BPM}",
+                        "open the metronome",
+                        "open the metronome at {BPM}",
+                        "open the metronome at b. p. m. {BPM}",
+                        "open the metronome with {BPM} b. p. m.",
+                        "open the metronome with b. p. m. {BPM}",
                         "play metronome",
+                        "play me metronome",
+                        "play me a metronome",
                         "play metronome at {BPM}",
                         "play metronome at b. p. m. {BPM}",
                         "play metronome with {BPM} b. p. m.",
                         "play metronome with b. p. m. {BPM}",
+                        "play me metronome at {BPM}",
+                        "play me metronome at b. p. m. {BPM}",
+                        "play me metronome with {BPM} b. p. m.",
+                        "play me metronome with b. p. m. {BPM}",
+                        "play me a metronome at {BPM}",
+                        "play me a metronome at b. p. m. {BPM}",
+                        "play me a metronome with {BPM} b. p. m.",
+                        "play me a metronome with b. p. m. {BPM}",
                         "turn on metronome",
                         "turn on metronome at {BPM}",
                         "turn on metronome at b. p. m. {BPM}",
                         "turn on metronome with {BPM} b. p. m.",
                         "turn on metronome with b. p. m. {BPM}",
+                        "turn on a metronome",
+                        "turn on a metronome at {BPM}",
+                        "turn on a metronome at b. p. m. {BPM}",
+                        "turn on a metronome with {BPM} b. p. m.",
+                        "turn on a metronome with b. p. m. {BPM}",
                         "with metronome",
                         "with metronome at {BPM}",
                         "with metronome at b. p. m. {BPM}",
@@ -108,6 +149,10 @@
                         }
                     ],
                     "samples": [
+                        "ok play a drone please",
+                        "ok play a drone",
+                        "play a drone please",
+                        "play a drone",
                         "let's tune the violin",
                         "tune my violin",
                         "let's tune my violin",
@@ -173,6 +218,10 @@
                         "quicker",
                         "{Quantifier} faster",
                         "faster",
+                        "play it {Quantifier} faster",
+                        "play {Quantifier} faster",
+                        "play it {Quantifier} faster please",
+                        "play {Quantifier} faster please",
                         "it's too slow",
                         "too slow"
                     ]
@@ -190,6 +239,10 @@
                         "less",
                         "{Quantifier} slower",
                         "slower",
+                        "play it {Quantifier} slower",
+                        "play {Quantifier} slower",
+                        "play it {Quantifier} slower please",
+                        "play {Quantifier} slower please",
                         "it's too fast",
                         "too fast"
                     ]
@@ -224,6 +277,13 @@
                         }
                     ],
                     "samples": [
+                        "timer",
+                        "a timer",
+                        "I would like to use a timer",
+                        "I want to set a practice timer",
+                        "I want to set a timer",
+                        "a practice timer",
+                        "I want to use a practice timer",
                         "I have a goal",
                         "I want to set a goal",
                         "I would like to set a goal",
@@ -267,6 +327,12 @@
                         "thank you alexa",
                         "you are the best",
                         "you did great",
+                        "that was great thank you",
+                        "awesome thank you",
+                        "awesome",
+                        "amazing",
+                        "that's amazing",
+                        "amazing thank you",
                         "thank you"
                     ]
                 },
@@ -280,6 +346,174 @@
                         "I don't want to practice",
                         "I am tired",
                         "I'm tired"
+                    ]
+                },
+                {
+                    "name": "DrumIntent",
+                    "slots": [],
+                    "samples": [
+                        "change it to drums please",
+                        "change it to drums",
+                        "play drums",
+                        "play sixty two with drums",
+                        "play it with drums",
+                        "play drum sound",
+                        "play metronome with drums",
+                        "play metronome with drum sound",
+                        "change metronome to drums",
+                        "change metronome sound to drums"
+                    ]
+                },
+                {
+                    "name": "SetDefaultIntent",
+                    "slots": [],
+                    "samples": [
+                        "please make that the default sound",
+                        "make cello the default",
+                        "make cello the default sound",
+                        "set it to default",
+                        "set it the default",
+                        "set cello to default",
+                        "set cello the default sound",
+                        "please make cello the default",
+                        "please make cello the default sound",
+                        "set it the default sound",
+                        "please set it to default",
+                        "please set cello to default",
+                        "please set cello the default sound",
+                        "please set  it the default sound"
+                    ]
+                },
+                {
+                    "name": "IntonationIntent",
+                    "slots": [],
+                    "samples": [
+                        "my intonation",
+                        "how was my tuning",
+                        "how was my intonation"
+                    ]
+                },
+                {
+                    "name": "SaveSessionIntent",
+                    "slots": [],
+                    "samples": [
+                        "save this session",
+                        "save today's session",
+                        "save this practice session",
+                        "save today's practice session",
+                        "save the session",
+                        "save this session please",
+                        "save the session please"
+                    ]
+                },
+                {
+                    "name": "StartIntervalGameIntent",
+                    "slots": [
+                        {
+                            "name": "n",
+                            "type": "AMAZON.NUMBER",
+                            "samples": [
+                                "{n} questions please",
+                                "{n} please",
+                                "{n} questions",
+                                "{n}"
+                            ]
+                        }
+                    ],
+                    "samples": [
+                        "let's play an interval training game with {n} questions",
+                        "let's play an interval training game",
+                        "let's play interval training questions",
+                        "let's play interval training game",
+                        "let's play the interval training game",
+                        "play an interval training game with {n} questions",
+                        "play an interval training game",
+                        "play interval training questions",
+                        "play interval training game",
+                        "play the interval training game",
+                        "play interval questions",
+                        "play {n} interval training questions",
+                        "interval training game",
+                        "interval training game with {n} questions",
+                        "{n} interval questions",
+                        "interval training questions",
+                        "interval questions",
+                        "interval",
+                        "intervals",
+                        "training questions",
+                        "training game",
+                        "start game",
+                        "game",
+                        "start interval training game",
+                        "start interval training game with {n} questions",
+                        "start {n} interval questions",
+                        "start interval training questions",
+                        "start interval questions",
+                        "start training questions",
+                        "start training game"
+                    ]
+                },
+                {
+                    "name": "IntervalGameAnswerIntent",
+                    "slots": [
+                        {
+                            "name": "interval",
+                            "type": "Interval"
+                        }
+                    ],
+                    "samples": [
+                        "is {interval} right",
+                        "i guess {interval}",
+                        "is it {interval}",
+                        "{interval}"
+                    ]
+                },
+                {
+                    "name": "ReviewIntent",
+                    "slots": [],
+                    "samples": [
+                        "I would like to review",
+                        "i'd like to review",
+                        "yes review",
+                        "yes i'd like to review",
+                        "yes",
+                        "yes please"
+                    ]
+                },
+                {
+                    "name": "NoIntent",
+                    "slots": [],
+                    "samples": [
+                        "no thank you alexa",
+                        "no thank you ",
+                        "no thanks",
+                        "no"
+                    ]
+                },
+                {
+                    "name": "RemindIntent",
+                    "slots": [],
+                    "samples": [
+                        "remind me",
+                        "remind me of yesterday",
+                        "remind me of yesterday's practice",
+                        "remind me of last practice",
+                        "remind me what I practiced",
+                        "remind me what I practiced yesterday",
+                        "remind me of yesterday's practice session"
+                    ]
+                },
+                {
+                    "name": "AccompanimentIntent",
+                    "slots": [],
+                    "samples": [
+                        "beautiful colorado",
+                        "play the accompaniment",
+                        "play accompaniment",
+                        "accompaniment",
+                        "accompaniment to beautiful colorado",
+                        "play accompaniment to beautiful colorado",
+                        "accompaniment of beautiful colorado"
                     ]
                 }
             ],
@@ -366,7 +600,12 @@
                                 "synonyms": [
                                     "f. three with cello",
                                     "f. three with a cello",
-                                    "f. with a cello"
+                                    "f. with a cello",
+                                    "cello note",
+                                    "make that a cello note",
+                                    "it with cello",
+                                    "play it with cello",
+                                    "cello"
                                 ]
                             }
                         },
@@ -440,7 +679,14 @@
                         {
                             "id": "-",
                             "name": {
-                                "value": "a little"
+                                "value": "a little",
+                                "synonyms": [
+                                    "play a little",
+                                    "play little",
+                                    "little",
+                                    "play a bit",
+                                    "a bit"
+                                ]
                             }
                         },
                         {
@@ -448,7 +694,65 @@
                             "name": {
                                 "value": "a lot",
                                 "synonyms": [
-                                    "much"
+                                    "much",
+                                    "play a lot",
+                                    "play much"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Interval",
+                    "values": [
+                        {
+                            "id": "Mj2",
+                            "name": {
+                                "value": "major second"
+                            }
+                        },
+                        {
+                            "id": "mn2",
+                            "name": {
+                                "value": "minor second"
+                            }
+                        },
+                        {
+                            "id": "Mj3",
+                            "name": {
+                                "value": "major third"
+                            }
+                        },
+                        {
+                            "id": "mn3",
+                            "name": {
+                                "value": "minor third"
+                            }
+                        },
+                        {
+                            "id": "Mj5",
+                            "name": {
+                                "value": "major fifth"
+                            }
+                        },
+                        {
+                            "id": "P5",
+                            "name": {
+                                "value": "perfect fifth"
+                            }
+                        },
+                        {
+                            "id": "mn5",
+                            "name": {
+                                "value": "minor fifth"
+                            }
+                        },
+                        {
+                            "id": "P4",
+                            "name": {
+                                "value": "perfect forth",
+                                "synonyms": [
+                                    "perfect fourth"
                                 ]
                             }
                         }
@@ -523,6 +827,22 @@
                             }
                         }
                     ]
+                },
+                {
+                    "name": "StartIntervalGameIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "n",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1361876125224.31430435110"
+                            }
+                        }
+                    ]
                 }
             ],
             "delegationStrategy": "ALWAYS"
@@ -534,10 +854,6 @@
                     {
                         "type": "PlainText",
                         "value": "How many beats per minutes?"
-                    },
-                    {
-                        "type": "PlainText",
-                        "value": "At what bpm?"
                     }
                 ]
             },
@@ -583,6 +899,15 @@
                     {
                         "type": "PlainText",
                         "value": "How long do you want to practice?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1361876125224.31430435110",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Ok. Based on your music theory lesson progress, we will start with interval identification. How many questions would you like?"
                     }
                 ]
             }
